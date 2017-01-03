@@ -1,0 +1,81 @@
++++
+title = "signing"
+url = "gxp/parameters/signing.html"
+class = "parameters"
+
+[menu.gxp]
+name = "signing"
+parent = "Parameters"
+weight = 10
++++
+
+Signing configuration that should be used when building for the device.
+
+The `signing` is a nested section within the `xcodebuild` parameters. e.g:
+
+```
+xcodebuild {
+	target = "Example"
+	scheme = "Example"
+	
+	signing {
+		certificateURI = 'file:///Users/me/codesign/development.p12'
+		certificatePassword = 'my_secret_password'
+		mobileProvisionURI = [
+			file:///Users/me/codesign/com.example.Example.mobileprovision',
+			file:///Users/me/codesign/com.example.Example.Widget.mobileprovision'
+		]
+	}
+}
+```
+
+# Parameters
+
+### mobileProvisionURI
+
+URI where the mobile provision profile is located that should be used when signing the app. You can also specify multiple provisining profiles as array when you have an app exenstion e.g. 
+
+`[ 'file:///first.mobileprovision', 'file:///second.mobileprovision']`
+
+default value: _empty_
+
+### certificateURI
+
+Uri to the certificate that should be used to sign the app
+
+default value: _empty_
+
+### certificatePassword
+
+Password for the certificate file
+
+default value: _empty_
+
+
+### entitlementsFile
+
+With this parameter a entitlments file can be specified that is used for codesigning. If empty then the entitlemnts that is embedded in the provisioning file is extracted and used.
+
+default value: _empty_
+
+### identity
+
+The signing identity e.g. 'iPhone Developer: Rene Piringer (AASDF1234)' or the SHA. With macOS Sierra only the SHA works. This parameter is **optional** and only needed if you have more then one identity in the keychain. This is only the case if the _keychain_ parameter is set, and the keychain is not created during the build process.
+
+default value: _empty_
+
+### keychainPassword
+
+Password for the chain that is created
+
+default value: `'This_is_the_default_keychain_password'`
+
+### keychain
+
+_It is highly recommended that you do not use this parameters!_ Gradle creates a keychain automatically, therefor you do not need to specify the keychain. You only need the parameter if you want to use an existing keychain. For this you have to make sure that `/usr/bin/codesign` is allowed to access the certificates in this keychain. If you use this parameter then the parameters `certificateURI` and `certificatePassword` are ignored and nothing is imported!
+
+### timeout
+
+A custom timeout in seconds before the keychain automatically locks.
+
+default value: _empty_ - This means the default timeout is used that is 5 minutes
