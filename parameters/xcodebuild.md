@@ -23,7 +23,7 @@ xcodebuild {
 
 ### scheme
 
-the xcode build scheme that should be used. If the scheme is set the _configuration_ and _target_ is ignored
+the xcode build scheme that should be used. If the scheme is set the _configuration_ is ignored. You need the to specify the _target_ because this is not yet read from the scheme.
 
 default value: _empty_
 
