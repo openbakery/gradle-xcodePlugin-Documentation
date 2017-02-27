@@ -51,10 +51,27 @@ Password for the certificate file
 
 default value: _empty_
 
+### entitlements
+
+Here the entitlements settings can be specifed that should be merged with the settings from the provisioning profile. The value can be specified as map. Here is an example: 
+```
+entitlements {
+	"com.apple.security.application-groups": [
+		"group.com.example.MyApp"
+	]
+}
+```
+
+If the parameter is empty, then the build process looks for an entitlements that is embedded in the archive (*.xcent file) and uses this for merging the the entitlements from the provisioning profile.
+
+
+default value: _empty_
+
 
 ### entitlementsFile
 
-With this parameter a entitlments file can be specified that is used for codesigning. If empty then the entitlemnts that is embedded in the provisioning file is extracted and used.
+With this parameter a entitlements file can be specified that is used for codesigning. If you specify a file here only this settings are used and nothing is merged, that means that the `entitlements` parameter from above is ignored.
+If empty then the entitlements that is embedded in the provisioning file is extracted and used.
 
 default value: _empty_
 
