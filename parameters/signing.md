@@ -55,11 +55,11 @@ default value: _empty_
 
 Here the entitlements settings can be specifed that should be merged with the settings from the provisioning profile. The value can be specified as map. Here is an example: 
 ```
-entitlements {
+entitlements = [
 	"com.apple.security.application-groups": [
 		"group.com.example.MyApp"
 	]
-}
+]
 ```
 
 If the parameter is empty, then the build process looks for an entitlements that is embedded in the archive (*.xcent file) and uses this for merging the the entitlements from the provisioning profile.
