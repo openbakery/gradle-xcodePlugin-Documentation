@@ -43,7 +43,9 @@ the build configuration name that should be used (e.g. 'Debug', 'Release')
 
 the type of the build. Possible values are `iOS`, `macOS`, `tvOS` and `watchOS`. This parameter replaces the sdk parameter. The given values is not case sensitive therefor `ios`, `iOs`, `IOS` are all correct values. Also `OSX' as value is supported for backward compatibility that is mapped to `macOS`. 
 
-  default value: `'iOS'`	
+default value: `'iOS'`	
+
+Note: the `macOS` value was introduced with Version 0.14.6, before it was `OSX`
 	
 ### simulator
 

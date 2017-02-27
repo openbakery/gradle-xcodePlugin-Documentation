@@ -67,6 +67,7 @@ If the parameter is empty, then the build process looks for an entitlements that
 
 default value: _empty_
 
+(since 0.14.6)
 
 ### entitlementsFile
 
