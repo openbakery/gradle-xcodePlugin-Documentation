@@ -21,17 +21,46 @@ xcodebuild {
 
 # Parameters
 
-### scheme
+### arch
 
-the xcode build scheme that should be used. If the scheme is set the _configuration_ is ignored. You need the to specify the _target_ because this is not yet read from the scheme.
+Use the architecture specified by architecture when building each target. e.g. `i386`, `armv6`, `armv7`
+
+Also an array of parameters is possible e.g. `['armv7', 'arm64']``
 
 default value: _empty_
 
-### workspace
+### additionalParameters
 
-the workspace file that should be used for the build.
+additional parameters for the xcodebuild. Here you can for example pass preprocessor definitions:
 
-default value: `*.xcworkspace` that was found in the project directory or empty if not found
+`additionalParameters = "GCC_PREPROCESSOR_DEFINITIONS='TIME=" + System.currentTimeMillis() + "'"`.
+
+Also an array of parameters is excepted e.g. 
+
+`["-xcconfig", "/path/to/the/xconfig" ]`
+
+default value: _empty_
+
+### bitcode
+
+If set to true the resulting binary will contain bitcode.
+
+default value: false
+
+Since version 0.15.0
+
+### bundleNameSuffix
+
+String that should be appended to the generated app bundle.
+e.g. the default app bundle name is 'Demo.App'. When you set `bundleNameSuffix=-1.0.0` than the generated bundle is 'Demo-1.0.0.app'
+
+default value: _empty_
+
+### buildRoot
+
+build root directory for the build output
+
+default value: `'build'`
 
 ### configuration
 
@@ -39,38 +68,18 @@ the build configuration name that should be used (e.g. 'Debug', 'Release')
 
   default value: `'Debug'`
 
-### type
+### derivedDataPath
 
-the type of the build. Possible values are `iOS`, `macOS`, `tvOS` and `watchOS`. This parameter replaces the sdk parameter. The given values is not case sensitive therefor `ios`, `iOs`, `IOS` are all correct values. Also `OSX' as value is supported for backward compatibility that is mapped to `macOS`. 
+the derived data path that should be used
 
-default value: `'iOS'`	
+default value: `'build/derivedData'`
 
-Note: the `macOS` value was introduced with Version 0.14.6, before it was `OSX`
-	
-### simulator
+### dstRoot
 
-should perform a simulator build. Possible values are 'true' and 'false'
+the distribution root directory
 
-  default value: `true`
+default value: `'build/dst'`
 
-### target
-
-the xcode build target that should be used
-
-  default value: _empty_
-
-### projectFile
-
-path to the `xcodeproj` file. You only need to set this if you have multiple xcodeproj in the same directory.
-
-default value: _empty_ - This means that the first `xcodeproj` is automatically picked that is present in the project directory
-
-### ipaFileName
-
-a custom name for the generated ipa file
-
-  default value: the applicaiton name is used if no ipaFileName is given
-	
 ### destination
 
 Destination configuration, that is used for the unit test execution
@@ -125,57 +134,49 @@ The arch can a single value e.g. 'i386' or a list of values e.g. [ 'armv7', 'arm
 
 default value: _empty_
 	
+### environment
 
-### additionalParameters
+pass environment variable to xcodebuild
 
-additional parameters for the xcodebuild. Here you can for example pass preprocessor definitions:
+### infoPlist
 
-`additionalParameters = "GCC_PREPROCESSOR_DEFINITIONS='TIME=" + System.currentTimeMillis() + "'"`.
+override the Info.plist file that is configured in the xcode project file
 
-Also an array of parameters is excepted e.g. 
+  default value: empty
 
-`["-xcconfig", "/path/to/the/xconfig" ]`
+### ipaFileName
 
-default value: _empty_
+a custom name for the generated ipa file
 
-### bundleNameSuffix
-
-String that should be appended to the generated app bundle.
-e.g. the default app bundle name is 'Demo.App'. When you set `bundleNameSuffix=-1.0.0` than the generated bundle is 'Demo-1.0.0.app'
-
-default value: _empty_
-
-### arch
-
-Use the architecture specified by architecture when building each target. e.g. `i386`, `armv6`, `armv7`
-
-Also an array of parameters is possible e.g. `['armv7', 'arm64']``
-
-default value: _empty_
-
-### buildRoot
-
-build root directory for the build output
-
-default value: `'build'`
-
-### derivedDataPath
-
-the derived data path that should be used
-
-default value: `'build/derivedData'`
-
-### dstRoot
-
-the distribution root directory
-
-default value: `'build/dst'`
-
+  default value: the applicaiton name is used if no ipaFileName is given
+	
 ### objRoot
 
 the object root directory
 
 default value: 'build/obj'
+
+### projectFile
+
+path to the `xcodeproj` file. You only need to set this if you have multiple xcodeproj in the same directory.
+
+default value: _empty_ - This means that the first `xcodeproj` is automatically picked that is present in the project directory
+
+### scheme
+
+the xcode build scheme that should be used. If the scheme is set the _configuration_ is ignored. You need the to specify the _target_ because this is not yet read from the scheme.
+
+default value: _empty_
+
+### simulator
+
+should perform a simulator build. Possible values are 'true' and 'false'
+
+  default value: `true`
+
+### sharedPrecompsDir
+
+  default value: 'build/shared'
 
 ### symRoot
 
@@ -183,15 +184,19 @@ the sym directory. Here is where the app and ipa is generated
 
   default value: 'build/sym'
 
-### sharedPrecompsDir
+### type
 
-  default value: 'build/shared'
+the type of the build. Possible values are `iOS`, `macOS`, `tvOS` and `watchOS`. This parameter replaces the sdk parameter. The given values is not case sensitive therefor `ios`, `iOs`, `IOS` are all correct values. Also `OSX' as value is supported for backward compatibility that is mapped to `macOS`. 
 
-### infoPlist
+default value: `'iOS'`	
 
-override the Info.plist file that is configured in the xcode project file
+Note: the `macOS` value was introduced with Version 0.14.6, before it was `OSX`
 
-  default value: empty
+### target
+
+the xcode build target that should be used
+
+  default value: _empty_
 
 ### version
 
@@ -200,6 +205,10 @@ set the xcode version that should be used if multiple versions of Xcode are inst
 
   defaul value: empty
 
-### environment
+### workspace
 
-pass environment variable to xcodebuild
+the workspace file that should be used for the build.
+
+default value: `*.xcworkspace` that was found in the project directory or empty if not found
+
+
