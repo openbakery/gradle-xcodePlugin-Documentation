@@ -53,12 +53,21 @@ default value: _empty_
 
 ### entitlements
 
-Here the entitlements settings can be specifed that should be merged with the settings from the provisioning profile. The value can be specified as map. Here is an example: 
+Here the entitlements settings can be specifed that should be merged with the settings from the provisioning profile. The value can be specified as map. The values specified here overrides the values from the provisioning profile.
+Here is an example: 
 ```
 entitlements = [
 	"com.apple.security.application-groups": [
 		"group.com.example.MyApp"
 	]
+]
+```
+
+since 0.15.1:
+If you want to delete a value from the entitlements than you can set it to null and it will be deleted: e.g.
+```
+entitlements = [
+ 'com.apple.developer.icloud-container-environment' : null
 ]
 ```
 
